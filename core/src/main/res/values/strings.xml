@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ExpertCapstone</string>
+    <string name="favorite">Favorite</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris commodo lorem orci, sit amet feugiat sem molestie sit amet. Donec tempor justo mauris, in rhoncus orci rhoncus id. Vestibulum ac sollicitudin sem. Maecenas aliquet urna ac pretium ultricies. Proin ut lacus et eros elementum mollis sit amet ut tortor. Vestibulum mi dui, eleifend varius nunc sed, porta pellentesque justo. Suspendisse a leo id enim tempus fringilla. Nullam sit amet leo sed lorem porttitor ullamcorper sed eget justo. Vestibulum laoreet felis a lacus pulvinar congue. Aenean venenatis tellus sed nunc blandit aliquam. In sagittis eu est sit amet semper. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In hac habitasse platea dictumst. Praesent porttitor aliquet finibus. Ut quam ipsum, efficitur vel vestibulum a, iaculis quis lorem. Aenean ac enim ligula.</string>
+    <string name="total_play_time">Total Play \nTime</string>
+    <string name="fab_favorite">Fab Favorite</string>
+    <string name="game_image">Game Image</string>
+</resources>
