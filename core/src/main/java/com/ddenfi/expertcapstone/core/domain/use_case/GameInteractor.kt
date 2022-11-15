@@ -13,7 +13,7 @@ class GameInteractor @Inject constructor(private val gameRepository: IGameReposi
     override fun getAllGame(): Flow<PagingData<Game>> = gameRepository.getAllGame()
 
     override fun getDetailGame(gameId: Int): Flow<Resource<GameDetail>> =
-        gameRepository.getGameByID(gameId)
+        gameRepository.getGameDetailByID(gameId)
 
     override fun setFavoriteGame(gameId: Int, isFavorite: Boolean) =
         gameRepository.setFavoriteGame(gameId, isFavorite)

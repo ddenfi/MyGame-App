@@ -16,9 +16,6 @@ interface GameDao {
     @Query("SELECT * FROM game WHERE isFavorite = 1")
     fun getFavoriteGames(): Flow<List<GameEntity>>
 
-    @Query("UPDATE game SET isFavorite = :isFavorite WHERE id = :gameId")
-    suspend fun updateFavouriteGame(gameId: Int, isFavorite: Boolean)
-
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = GameEntity::class)
     suspend fun insertGame(game: List<GameEntity>)
 

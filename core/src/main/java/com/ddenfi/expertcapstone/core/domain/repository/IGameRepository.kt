@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface IGameRepository {
     fun getAllGame(): Flow<PagingData<Game>>
 
-    fun getGameByID(gameId: Int): Flow<Resource<GameDetail>>
+    fun getGameDetailByID(gameId: Int): Flow<Resource<GameDetail>>
 
     fun setFavoriteGame(gameId: Int, isFavorite: Boolean)
 

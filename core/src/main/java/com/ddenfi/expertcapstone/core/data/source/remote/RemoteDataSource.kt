@@ -3,7 +3,6 @@ package com.ddenfi.expertcapstone.core.data.source.remote
 import android.util.Log
 import com.ddenfi.expertcapstone.core.data.source.remote.network.ApiResponse
 import com.ddenfi.expertcapstone.core.data.source.remote.network.ApiService
-import com.ddenfi.expertcapstone.core.data.source.remote.response.GameDetailResponse
 import com.ddenfi.expertcapstone.core.data.source.remote.response.GamesResultsItem
 import com.ddenfi.expertcapstone.core.utils.API_KEY
 import kotlinx.coroutines.Dispatchers

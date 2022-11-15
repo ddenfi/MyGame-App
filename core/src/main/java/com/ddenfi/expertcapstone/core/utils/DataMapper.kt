@@ -1,5 +1,6 @@
 package com.ddenfi.expertcapstone.core.utils
 
+import com.ddenfi.expertcapstone.core.data.source.local.entity.GameDetailEntity
 import com.ddenfi.expertcapstone.core.data.source.local.entity.GameEntity
 import com.ddenfi.expertcapstone.core.data.source.remote.response.GameDetailResponse
 import com.ddenfi.expertcapstone.core.data.source.remote.response.GamesResultsItem
@@ -18,21 +19,35 @@ object DataMapper {
             page = page
         )
 
+    fun mapGameDetailResponseToGameDetailEntity(remote: GameDetailResponse): GameDetailEntity =
+        GameDetailEntity(
+            id = remote.id,
+            name = remote.name,
+            backgroundImage = remote.backgroundImage,
+            description = remote.description,
+            playtime = remote.playtime,
+            esrbRating = remote.esrbRating.name,
+            rating = remote.rating.toString(),
+            parentPlatforms = remote.parentPlatforms.map { it.platform.id },
+            released = remote.released,
+            isFavorite = false
 
-    fun mapRemoteAndLocalToGameDetail(remote: GameDetailResponse?, local: GameEntity): GameDetail =
+        )
+
+    fun mapGameDetailEntityToGameDetail(local: GameDetailEntity):GameDetail =
         GameDetail(
             id = local.id,
             name = local.name,
-            backgroundImage = remote?.backgroundImage ?: "",
-            description = remote?.description ?: "",
-            playtime = remote?.playtime ?: 0,
-            esrbRating = remote?.esrbRating?.name ?: "",
-            rating = local.rating,
-            parentPlatforms = local.parentPlatform,
+            backgroundImage = local.backgroundImage,
+            description = local.description,
+            playtime = local.playtime,
+            esrbRating = local.esrbRating,
+            rating = local.rating.toString(),
+            parentPlatforms = local.parentPlatforms,
             released = local.released,
-            isFavorite = local.isFavorite
-
+            isFavorite = false
         )
+
 
     fun mapGameEntityToGame(input: GameEntity): Game =
         Game(

@@ -1,5 +1,6 @@
 package com.ddenfi.expertcapstone.core.data.repository
 
+import android.provider.ContactsContract
 import androidx.paging.*
 import com.ddenfi.expertcapstone.core.data.NetworkBoundResource
 import com.ddenfi.expertcapstone.core.data.source.GameRemoteMediator
@@ -7,7 +8,7 @@ import com.ddenfi.expertcapstone.core.data.source.local.LocalDataSource
 import com.ddenfi.expertcapstone.core.data.source.local.entity.GameEntity
 import com.ddenfi.expertcapstone.core.data.source.remote.RemoteDataSource
 import com.ddenfi.expertcapstone.core.data.source.remote.network.ApiResponse
-import com.ddenfi.expertcapstone.core.data.source.remote.response.GamesResultsItem
+import com.ddenfi.expertcapstone.core.data.source.remote.response.GameDetailResponse
 import com.ddenfi.expertcapstone.core.domain.model.Game
 import com.ddenfi.expertcapstone.core.domain.model.GameDetail
 import com.ddenfi.expertcapstone.core.domain.repository.IGameRepository
@@ -38,38 +39,22 @@ class GameRepository @Inject constructor(
         value.map { DataMapper.mapGameEntityToGame(it) }
     }
 
-    override fun getGameByID(gameId: Int): Flow<Resource<GameDetail>> = flow {
-        val localDataStore = localDataSource.getGameById(gameId)
-        val remoteDataSource = remoteDataSource.getGameById(gameId)
-        emit(
-            Resource.Loading(
-                data = DataMapper.mapRemoteAndLocalToGameDetail(
-                    null,
-                    localDataStore.first()
-                )
-            )
-        )
-
-        localDataStore.combine(remoteDataSource) { local, remote ->
-            when (remote) {
-                is ApiResponse.Success -> emit(
-                    Resource.Success(
-                        DataMapper.mapRemoteAndLocalToGameDetail(
-                            remote.data,
-                            local
-                        )
-                    )
-                )
-                is ApiResponse.Error -> emit(
-                    Resource.Error(
-                        remote.error.toString(),
-                        DataMapper.mapRemoteAndLocalToGameDetail(null, local)
-                    )
-                )
-                is ApiResponse.Empty -> emit(Resource.Error("Unexpected error occurred"))
+    override fun getGameDetailByID(gameId: Int): Flow<Resource<GameDetail>> =
+        object: NetworkBoundResource<GameDetail, GameDetailResponse>(){
+            override fun loadFromDB(): Flow<GameDetail> {
+                return localDataSource.getGameDetailById(gameId).map { DataMapper.mapGameDetailEntityToGameDetail(it) }
             }
-        }.collect()
-    }
+
+            override fun shouldFetch(data: GameDetail?): Boolean = data == null
+
+            override suspend fun createCall(): Flow<ApiResponse<GameDetailResponse>> {
+                return remoteDataSource.getGameById(gameId)
+            }
+
+            override suspend fun saveCallResult(data: GameDetailResponse) {
+                localDataSource.insertGameDetail(DataMapper.mapGameDetailResponseToGameDetailEntity(data))
+            }
+        }.asFlow()
 
     override fun setFavoriteGame(gameId: Int, isFavorite: Boolean) {
         CoroutineScope(Dispatchers.IO).launch {

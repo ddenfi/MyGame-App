@@ -10,5 +10,11 @@ data class GameDetailEntity(
     val name: String?= "",
     val esrbRating:String?= "",
     val playTime:Int?= 0,
-    val desc:String?= ""
+    val backgroundImage:String?= "",
+    val description:String?= ""  ,
+    val playtime:Int?= 0,
+    val rating:String?= "" ,
+    val parentPlatforms:List<Int>? = listOf(),
+    val released:String?="",
+    val isFavorite:Boolean = false
 )

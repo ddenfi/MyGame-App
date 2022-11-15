@@ -2,19 +2,10 @@ package com.ddenfi.expertcapstone.core.data.source.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class Platform(
-
-	@field:SerializedName("image")
-	val image: Any,
+data class DevelopersItem(
 
 	@field:SerializedName("games_count")
 	val gamesCount: Int,
-
-	@field:SerializedName("year_end")
-	val yearEnd: Any,
-
-	@field:SerializedName("year_start")
-	val yearStart: Any,
 
 	@field:SerializedName("name")
 	val name: String,
