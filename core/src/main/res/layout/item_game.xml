@@ -12,19 +12,22 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/accent_black"
         android:paddingHorizontal="30dp"
-        android:paddingVertical="10dp"
-        android:background="@color/accent_black">
+        android:paddingVertical="10dp">
 
         <TextView
             android:id="@+id/tv_game_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
+            android:maxEms="12"
             android:text="Grand Theft Auto-v"
             android:textColor="@color/base_white"
             android:textSize="20sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/tv_rating"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,9 +35,9 @@
             android:id="@+id/tv_game_released"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/accent_white"
             android:layout_marginTop="8dp"
             android:text="Released date"
+            android:textColor="@color/accent_white"
             app:layout_constraintTop_toBottomOf="@+id/tv_game_name" />
 
         <TextView
@@ -53,18 +56,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_game_released"
-            android:orientation="horizontal">
+            app:layout_constraintTop_toBottomOf="@+id/tv_game_released">
 
             <ImageView
                 android:id="@+id/iv_game_pc"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:alpha="0.5"
                 android:layout_marginEnd="10dp"
-                android:visibility="gone"
-                android:src="@drawable/icons8_workstation_100" />
+                android:alpha="0.5"
+                android:src="@drawable/icons8_workstation_100"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/iv_game_ps"
@@ -72,8 +75,8 @@
                 android:layout_height="30dp"
                 android:layout_marginEnd="10dp"
                 android:alpha="0.5"
-                android:visibility="gone"
-                android:src="@drawable/icons8_playstation_100" />
+                android:src="@drawable/icons8_playstation_100"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/iv_game_xbox"
@@ -81,8 +84,8 @@
                 android:layout_height="30dp"
                 android:layout_marginEnd="10dp"
                 android:alpha="0.5"
-                android:visibility="gone"
-                android:src="@drawable/icons8_xbox_100" />
+                android:src="@drawable/icons8_xbox_100"
+                android:visibility="gone" />
 
 
             <ImageView
@@ -91,8 +94,8 @@
                 android:layout_height="30dp"
                 android:layout_marginEnd="10dp"
                 android:alpha="0.5"
-                android:visibility="gone"
-                android:src="@drawable/icons8_ios_logo_100" />
+                android:src="@drawable/icons8_ios_logo_100"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/iv_game_android"
@@ -100,8 +103,8 @@
                 android:layout_height="30dp"
                 android:layout_marginEnd="10dp"
                 android:alpha="0.5"
-                android:visibility="gone"
-                android:src="@drawable/icons8_android_os_100" />
+                android:src="@drawable/icons8_android_os_100"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/iv_game_nintendo"
@@ -109,19 +112,19 @@
                 android:layout_height="30dp"
                 android:layout_marginEnd="10dp"
                 android:alpha="0.5"
-                android:visibility="gone"
-                android:src="@drawable/icons8_nintendo_switch_logo_100"/>
+                android:src="@drawable/icons8_nintendo_switch_logo_100"
+                android:visibility="gone" />
+
             <ImageView
                 android:id="@+id/iv_game_default"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="10dp"
                 android:alpha="0.5"
-                android:visibility="gone"
-                android:src="@drawable/icons8_ps_controller_100"/>
+                android:src="@drawable/icons8_ps_controller_100"
+                android:visibility="gone" />
 
         </LinearLayout>
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

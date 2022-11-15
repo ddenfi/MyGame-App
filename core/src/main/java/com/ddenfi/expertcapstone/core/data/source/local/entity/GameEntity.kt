@@ -8,9 +8,10 @@ import androidx.room.PrimaryKey
 data class GameEntity(
     @PrimaryKey
     val id: Int,
-    val name: String,
-    val released: String,
-    val rating: String,
-    val parentPlatform: List<Int>,
-    var isFavorite: Boolean? = false
+    val page:Int,
+    val name: String?= "",
+    val released: String?= "",
+    val rating: String?= "",
+    val parentPlatform: List<Int>?= listOf(),
+    var isFavorite: Boolean?= false
 )

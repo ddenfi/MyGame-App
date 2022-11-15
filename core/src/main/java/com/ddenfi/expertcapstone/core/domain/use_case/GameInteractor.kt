@@ -1,5 +1,6 @@
 package com.ddenfi.expertcapstone.core.domain.use_case
 
+import androidx.paging.PagingData
 import com.ddenfi.expertcapstone.core.domain.model.Game
 import com.ddenfi.expertcapstone.core.domain.model.GameDetail
 import com.ddenfi.expertcapstone.core.domain.repository.IGameRepository
@@ -9,7 +10,7 @@ import javax.inject.Inject
 
 class GameInteractor @Inject constructor(private val gameRepository: IGameRepository) :
     GameUseCase {
-    override fun getAllGame(): Flow<Resource<List<Game>>> = gameRepository.getAllGame()
+    override fun getAllGame(): Flow<PagingData<Game>> = gameRepository.getAllGame()
 
     override fun getDetailGame(gameId: Int): Flow<Resource<GameDetail>> =
         gameRepository.getGameByID(gameId)

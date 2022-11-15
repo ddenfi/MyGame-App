@@ -1,6 +1,8 @@
 package com.ddenfi.expertcapstone.core.data.repository
 
+import androidx.paging.*
 import com.ddenfi.expertcapstone.core.data.NetworkBoundResource
+import com.ddenfi.expertcapstone.core.data.source.GameRemoteMediator
 import com.ddenfi.expertcapstone.core.data.source.local.LocalDataSource
 import com.ddenfi.expertcapstone.core.data.source.local.entity.GameEntity
 import com.ddenfi.expertcapstone.core.data.source.remote.RemoteDataSource
@@ -9,10 +11,12 @@ import com.ddenfi.expertcapstone.core.data.source.remote.response.GamesResultsIt
 import com.ddenfi.expertcapstone.core.domain.model.Game
 import com.ddenfi.expertcapstone.core.domain.model.GameDetail
 import com.ddenfi.expertcapstone.core.domain.repository.IGameRepository
-import com.ddenfi.expertcapstone.core.utils.AppExecutors
 import com.ddenfi.expertcapstone.core.utils.DataMapper
 import com.ddenfi.expertcapstone.core.utils.Resource
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -21,25 +25,18 @@ import javax.inject.Singleton
 class GameRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
-    private val appExecutors: AppExecutors
 ) : IGameRepository {
-    override fun getAllGame(): Flow<Resource<List<Game>>> =
-        object : NetworkBoundResource<List<Game>, List<GamesResultsItem>>() {
-            override fun loadFromDB(): Flow<List<Game>> {
-                return localDataSource.getAllGames().map { DataMapper.mapEntitiesToGames(it) }
-            }
+    @OptIn(ExperimentalPagingApi::class)
+    override fun getAllGame(): Flow<PagingData<Game>> = Pager(
 
-            override fun shouldFetch(data: List<Game>?): Boolean = data == null || data.isEmpty()
-
-            override suspend fun createCall(): Flow<ApiResponse<List<GamesResultsItem>>> =
-                remoteDataSource.getAllGames()
-
-
-            override suspend fun saveCallResult(data: List<GamesResultsItem>) {
-                val listGame = data.map { DataMapper.mapResponseToEntity(it) }
-                localDataSource.insertGame(listGame)
-            }
-        }.asFlow()
+        config = PagingConfig(pageSize = 10),
+        remoteMediator = GameRemoteMediator(localDataSource, remoteDataSource),
+        pagingSourceFactory = {
+            localDataSource.getAllGames()
+        }
+    ).flow.map { value: PagingData<GameEntity> ->
+        value.map { DataMapper.mapGameEntityToGame(it) }
+    }
 
     override fun getGameByID(gameId: Int): Flow<Resource<GameDetail>> = flow {
         val localDataStore = localDataSource.getGameById(gameId)
@@ -65,7 +62,7 @@ class GameRepository @Inject constructor(
                 )
                 is ApiResponse.Error -> emit(
                     Resource.Error(
-                        remote.errorMessage,
+                        remote.error.toString(),
                         DataMapper.mapRemoteAndLocalToGameDetail(null, local)
                     )
                 )
@@ -75,7 +72,12 @@ class GameRepository @Inject constructor(
     }
 
     override fun setFavoriteGame(gameId: Int, isFavorite: Boolean) {
-        appExecutors.diskIO().execute { localDataSource.setFavoriteGame(gameId, isFavorite) }
+        CoroutineScope(Dispatchers.IO).launch {
+            localDataSource.setFavoriteGame(
+                gameId,
+                isFavorite
+            )
+        }
     }
 
 
@@ -85,7 +87,7 @@ class GameRepository @Inject constructor(
         localDataSource.onEach { list: List<GameEntity> ->
             try {
                 emit(Resource.Success(list.map { DataMapper.mapGameEntityToGame(it) }))
-            } catch (e:IOException){
+            } catch (e: IOException) {
                 emit((Resource.Error(e.toString())))
             }
         }.collect()

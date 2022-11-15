@@ -14,7 +14,9 @@ import javax.inject.Named
 interface ApiService {
     @GET("games")
     suspend fun getListGames(
-        @Query("key") apiKey: String
+        @Query("key") apiKey: String,
+        @Query("page") page:Int,
+        @Query("page_size") pageSize:Int
     ): GamesResponse
 
     @GET("games/{gameId}")

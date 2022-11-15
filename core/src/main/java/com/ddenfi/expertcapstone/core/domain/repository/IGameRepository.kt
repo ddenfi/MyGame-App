@@ -1,13 +1,15 @@
 package com.ddenfi.expertcapstone.core.domain.repository
 
 
+import androidx.paging.Pager
+import androidx.paging.PagingData
 import com.ddenfi.expertcapstone.core.domain.model.Game
 import com.ddenfi.expertcapstone.core.domain.model.GameDetail
 import com.ddenfi.expertcapstone.core.utils.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface IGameRepository {
-    fun getAllGame(): Flow<Resource<List<Game>>>
+    fun getAllGame(): Flow<PagingData<Game>>
 
     fun getGameByID(gameId: Int): Flow<Resource<GameDetail>>
 

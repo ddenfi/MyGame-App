@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.ddenfi.expertcapstone.core.data.source.local.room.GameDao
 import com.ddenfi.expertcapstone.core.data.source.local.room.GameDatabase
+import com.ddenfi.expertcapstone.core.data.source.local.room.GameDetailDao
+import com.ddenfi.expertcapstone.core.data.source.local.room.RemoteKeysDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,4 +26,10 @@ class DatabaseModule {
 
     @Provides
     fun provideGameDao(database: GameDatabase): GameDao = database.gameDao()
+
+    @Provides
+    fun provideGameDetailDao(database: GameDatabase): GameDetailDao = database.gameDetailDao()
+
+    @Provides
+    fun provideRemoteKeysDao(database: GameDatabase): RemoteKeysDao = database.remoteKeysDao()
 }

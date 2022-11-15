@@ -18,10 +18,10 @@ import javax.inject.Singleton
 @Singleton
 class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
 
-    suspend fun getAllGames(): Flow<ApiResponse<List<GamesResultsItem>>> {
+    suspend fun getAllGames(page:Int,pageSize:Int): Flow<ApiResponse<List<GamesResultsItem>>> {
         return flow {
             try {
-                val response = apiService.getListGames(API_KEY)
+                val response = apiService.getListGames(API_KEY,page,pageSize)
                 val dataArray = response.results
                 if (dataArray.isNotEmpty()) {
                     emit(ApiResponse.Success(response.results))
@@ -29,10 +29,10 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
                     emit(ApiResponse.Empty)
                 }
             } catch (e: HttpException) {
-                emit(ApiResponse.Error(e.toString()))
+                emit(ApiResponse.Error(e))
                 Log.e("Remote Data Source", e.toString())
             } catch (e: IOException) {
-                emit(ApiResponse.Error("Could,t connect to server, Please check your internet"))
+                emit(ApiResponse.Error(e))
                 Log.e("Remote Data Source", "Check Connection")
             }
         }.flowOn(Dispatchers.IO)
@@ -48,10 +48,10 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
                     emit(ApiResponse.Empty)
                 }
             } catch (e: HttpException) {
-                emit(ApiResponse.Error(e.toString()))
+                emit(ApiResponse.Error(e))
                 Log.e("Remote Data Source", e.toString())
             } catch (e: IOException) {
-                emit(ApiResponse.Error("Could,t connect to server, Please check your internet"))
+                emit(ApiResponse.Error(e))
                 Log.e("Remote Data Source", "Check Connection")
             }
         }.flowOn(Dispatchers.IO)

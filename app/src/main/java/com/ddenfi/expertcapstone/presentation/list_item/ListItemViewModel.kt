@@ -8,5 +8,5 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ListItemViewModel @Inject constructor(private val gameUseCase: GameUseCase) : ViewModel() {
-    val allGame = gameUseCase.getAllGame().asLiveData()
+    val allGame = gameUseCase.getAllGame()
 }

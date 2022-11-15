@@ -7,27 +7,17 @@ import com.ddenfi.expertcapstone.core.domain.model.Game
 import com.ddenfi.expertcapstone.core.domain.model.GameDetail
 
 object DataMapper {
-    fun mapResponseToEntity(input: GamesResultsItem): GameEntity =
+    fun mapResponseToEntity(input: GamesResultsItem,page:Int): GameEntity =
         GameEntity(
             id = input.id,
             name = input.name,
             released = input.released,
             rating = input.rating.toString(),
             parentPlatform = input.parentPlatforms.map { it.platform.id },
-            isFavorite = false
+            isFavorite = false,
+            page = page
         )
 
-    fun mapEntitiesToGames(input: List<GameEntity>): List<Game> =
-        input.map {
-            Game(
-                id = it.id,
-                name = it.name,
-                released = it.released,
-                rating = it.rating,
-                parentPlatforms = it.parentPlatform,
-                isFavorite = it.isFavorite
-            )
-        }
 
     fun mapRemoteAndLocalToGameDetail(remote: GameDetailResponse?, local: GameEntity): GameDetail =
         GameDetail(
@@ -47,10 +37,10 @@ object DataMapper {
     fun mapGameEntityToGame(input: GameEntity): Game =
         Game(
             id = input.id,
-            name = input.name,
-            released = input.released,
-            rating = input.rating,
-            parentPlatforms = input.parentPlatform,
+            name = input.name ?: "",
+            released = input.released ?: "",
+            rating = input.rating ?: "",
+            parentPlatforms = input.parentPlatform ?: listOf(),
             isFavorite = false
         )
 

@@ -5,26 +5,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ddenfi.expertcapstone.core.databinding.ItemGameBinding
 import com.ddenfi.expertcapstone.core.domain.model.Game
 
-class ListItemAdapter : RecyclerView.Adapter<ListItemAdapter.ListViewHolder>() {
+class ListItemAdapter :
+    PagingDataAdapter<Game, ListItemAdapter.ListViewHolder>(DIFF_CALLBACK) {
 
-    private val listFeed: ArrayList<Game> = ArrayList()
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun setData(data: List<Game>) {
-        listFeed.apply {
-            clear()
-            addAll(data)
-        }
-        notifyDataSetChanged()
     }
 
     inner class ListViewHolder(private var binding: ItemGameBinding) :
@@ -62,12 +55,26 @@ class ListItemAdapter : RecyclerView.Adapter<ListItemAdapter.ListViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.bind(listFeed[position])
+        val item = getItem(position)
+        if (item != null) holder.bind(item)
     }
-
-    override fun getItemCount(): Int = listFeed.size
 
     interface OnItemClickCallback {
         fun onItemClicked(data: Game)
+    }
+
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Game>() {
+            override fun areItemsTheSame(oldItem: Game, newItem: Game): Boolean {
+                return oldItem == newItem
+            }
+
+            override fun areContentsTheSame(
+                oldItem: Game,
+                newItem: Game
+            ): Boolean {
+                return oldItem.id == newItem.id
+            }
+        }
     }
 }

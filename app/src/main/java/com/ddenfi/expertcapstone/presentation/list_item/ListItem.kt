@@ -10,6 +10,8 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ddenfi.expertcapstone.R
 import com.ddenfi.expertcapstone.core.domain.model.Game
@@ -18,8 +20,11 @@ import com.ddenfi.expertcapstone.presentation.detail_item.DetailGame
 import com.ddenfi.expertcapstone.core.utils.GAME_ID
 import com.ddenfi.expertcapstone.core.utils.IS_FAV
 import com.ddenfi.expertcapstone.core.utils.Resource
+import com.ddenfi.expertcapstone.core.utils.UserComparator
 import com.ddenfi.expertcapstone.databinding.ActivityListItemBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ListItem : AppCompatActivity() {
@@ -35,26 +40,9 @@ class ListItem : AppCompatActivity() {
 
         val rvAdapter = ListItemAdapter()
 
-        setView(rvAdapter)
         setRecyclerView(rvAdapter)
     }
 
-    private fun setView(rvAdapter: ListItemAdapter) {
-        viewModel.allGame.observe(this) {
-            when (it) {
-                is Resource.Loading -> binding.pgGame.visibility = View.VISIBLE
-                is Resource.Success -> it.data?.let { it1 ->
-                    rvAdapter.setData(it1)
-                    binding.pgGame.visibility = View.GONE
-                }
-                is Resource.Error -> {
-                    binding.pgGame.visibility = View.GONE
-                    Toast.makeText(this@ListItem, it.message, Toast.LENGTH_SHORT)
-                        .show()
-                }
-            }
-        }
-    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.list_menu, menu)
@@ -76,6 +64,11 @@ class ListItem : AppCompatActivity() {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@ListItem)
             adapter = rvAdapter
+            lifecycleScope.launch {
+                viewModel.allGame.collectLatest { pagingData: PagingData<Game> ->
+                    rvAdapter.submitData(pagingData)
+                }
+            }
         }
 
         rvAdapter.setOnItemClickCallback(object : ListItemAdapter.OnItemClickCallback {
