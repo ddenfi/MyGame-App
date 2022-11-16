@@ -25,7 +25,7 @@ object DataMapper {
             name = remote.name,
             backgroundImage = remote.backgroundImage,
             description = remote.description,
-            playtime = remote.playtime,
+            playTime = remote.playtime,
             esrbRating = remote.esrbRating.name,
             rating = remote.rating.toString(),
             parentPlatforms = remote.parentPlatforms.map { it.platform.id },
@@ -34,18 +34,18 @@ object DataMapper {
 
         )
 
-    fun mapGameDetailEntityToGameDetail(local: GameDetailEntity):GameDetail =
+    fun mapGameDetailEntityToGameDetail(local: GameDetailEntity?):GameDetail =
         GameDetail(
-            id = local.id,
-            name = local.name,
-            backgroundImage = local.backgroundImage,
-            description = local.description,
-            playtime = local.playtime,
-            esrbRating = local.esrbRating,
-            rating = local.rating.toString(),
-            parentPlatforms = local.parentPlatforms,
-            released = local.released,
-            isFavorite = false
+            id = local?.id ?: 0 ,
+            name = local?.name,
+            backgroundImage = local?.backgroundImage,
+            description = local?.description,
+            playTime = local?.playTime,
+            esrbRating = local?.esrbRating,
+            rating = local?.rating.toString(),
+            parentPlatforms = local?.parentPlatforms,
+            released = local?.released,
+            isFavorite = local?.isFavorite
         )
 
 
@@ -59,4 +59,17 @@ object DataMapper {
             isFavorite = false
         )
 
+    fun mapGameDetailToGame(input:List<GameDetail>):List<Game>{
+        val output = input.map { data ->
+            Game(
+                id = data.id,
+                name = data.name ?: "",
+                released = data.released ?: "",
+                rating = data.rating ?: "",
+                parentPlatforms = data.parentPlatforms ?: listOf(),
+                isFavorite = data.isFavorite
+            )
+        }
+        return output
+    }
 }

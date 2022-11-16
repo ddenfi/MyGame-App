@@ -29,11 +29,11 @@ class DetailGame : AppCompatActivity() {
         val extraGameId = intent.getIntExtra(GAME_ID, 0)
 
         viewModel.getDetailGame(extraGameId).observe(this) { gameDetail ->
+            Log.d("Remote UI","called by id")
             if (gameDetail != null) {
                 when (gameDetail) {
                     is Resource.Loading -> {
                         binding.pbDetailGame.visibility = View.VISIBLE
-                        Log.d("APP STATE", "LOADING")
                         gameDetail.data?.let { setView(it) }
                     }
                     is Resource.Success -> {
@@ -75,7 +75,7 @@ class DetailGame : AppCompatActivity() {
             tvDetailGameName.text = gameDetail.name ?: ""
             tvDetailGameDesc.text = Html.fromHtml(gameDetail.description ?: "")
             tvDetailGameErsb.text = gameDetail.esrbRating ?: ""
-            tvDetailGamePlay.text = gameDetail.playtime.toString()
+            tvDetailGamePlay.text = gameDetail.playTime.toString()
             Glide.with(this@DetailGame)
                 .load(gameDetail.backgroundImage)
                 .into(ivGameImage)

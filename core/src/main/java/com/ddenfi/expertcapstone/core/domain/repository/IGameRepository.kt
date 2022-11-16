@@ -1,7 +1,6 @@
 package com.ddenfi.expertcapstone.core.domain.repository
 
 
-import androidx.paging.Pager
 import androidx.paging.PagingData
 import com.ddenfi.expertcapstone.core.domain.model.Game
 import com.ddenfi.expertcapstone.core.domain.model.GameDetail
@@ -15,6 +14,6 @@ interface IGameRepository {
 
     fun setFavoriteGame(gameId: Int, isFavorite: Boolean)
 
-    fun getAllFavoriteGame(): Flow<Resource<List<Game>>>
+    fun getAllFavoriteGame(): Flow<Resource<List<GameDetail>>>
 
 }

@@ -11,16 +11,7 @@ import com.ddenfi.expertcapstone.core.data.source.local.entity.RemoteKeys
 import com.ddenfi.expertcapstone.core.data.source.remote.RemoteDataSource
 import com.ddenfi.expertcapstone.core.data.source.remote.network.ApiResponse
 import com.ddenfi.expertcapstone.core.utils.DataMapper
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
-import java.lang.Error
-import javax.annotation.meta.When
-import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
 class GameRemoteMediator(
@@ -59,7 +50,7 @@ class GameRemoteMediator(
             is ApiResponse.Success -> {
                 Log.d("API Call", "success")
                 if (loadType == LoadType.REFRESH) {
-                    localDataSource.deleteRemoteKeys()
+                    localDataSource.deleteAllGame()
                     localDataSource.deleteRemoteKeys()
                 }
                 val prefKey = if (page == 1) null else page - 1

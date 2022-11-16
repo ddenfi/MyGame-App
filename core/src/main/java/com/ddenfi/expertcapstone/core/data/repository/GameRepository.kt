@@ -1,10 +1,11 @@
 package com.ddenfi.expertcapstone.core.data.repository
 
-import android.provider.ContactsContract
+import android.util.Log
 import androidx.paging.*
 import com.ddenfi.expertcapstone.core.data.NetworkBoundResource
 import com.ddenfi.expertcapstone.core.data.source.GameRemoteMediator
 import com.ddenfi.expertcapstone.core.data.source.local.LocalDataSource
+import com.ddenfi.expertcapstone.core.data.source.local.entity.GameDetailEntity
 import com.ddenfi.expertcapstone.core.data.source.local.entity.GameEntity
 import com.ddenfi.expertcapstone.core.data.source.remote.RemoteDataSource
 import com.ddenfi.expertcapstone.core.data.source.remote.network.ApiResponse
@@ -41,13 +42,14 @@ class GameRepository @Inject constructor(
 
     override fun getGameDetailByID(gameId: Int): Flow<Resource<GameDetail>> =
         object: NetworkBoundResource<GameDetail, GameDetailResponse>(){
-            override fun loadFromDB(): Flow<GameDetail> {
+            override fun loadFromDB(): Flow<GameDetail?> {
                 return localDataSource.getGameDetailById(gameId).map { DataMapper.mapGameDetailEntityToGameDetail(it) }
             }
 
-            override fun shouldFetch(data: GameDetail?): Boolean = data == null
+            override fun shouldFetch(data: GameDetail?): Boolean = data?.id == 0
 
             override suspend fun createCall(): Flow<ApiResponse<GameDetailResponse>> {
+                Log.d("Remote Repo","called by id")
                 return remoteDataSource.getGameById(gameId)
             }
 
@@ -66,12 +68,12 @@ class GameRepository @Inject constructor(
     }
 
 
-    override fun getAllFavoriteGame(): Flow<Resource<List<Game>>> = flow {
+    override fun getAllFavoriteGame(): Flow<Resource<List<GameDetail>>> = flow {
         emit(Resource.Loading())
         val localDataSource = localDataSource.getFavoriteGames()
-        localDataSource.onEach { list: List<GameEntity> ->
+        localDataSource.onEach { list: List<GameDetailEntity> ->
             try {
-                emit(Resource.Success(list.map { DataMapper.mapGameEntityToGame(it) }))
+                emit(Resource.Success(list.map { DataMapper.mapGameDetailEntityToGameDetail(it) }))
             } catch (e: IOException) {
                 emit((Resource.Error(e.toString())))
             }

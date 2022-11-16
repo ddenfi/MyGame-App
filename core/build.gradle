@@ -8,7 +8,7 @@ plugins {
 apply from: '../shared_dependency.gradle'
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         minSdk 21
@@ -20,9 +20,10 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -36,6 +37,7 @@ android {
     buildFeatures{
         viewBinding = true
     }
+    namespace 'com.ddenfi.expertcapstone.core'
 
 }
 
@@ -56,6 +58,10 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     api "com.squareup.okhttp3:logging-interceptor:$logging_interceptor_version"
+
+    //database chiper
+    implementation "net.zetetic:android-database-sqlcipher:4.4.0"
+    implementation "androidx.sqlite:sqlite-ktx:2.2.0"
 
     //coroutine
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"

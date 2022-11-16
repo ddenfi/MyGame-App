@@ -7,7 +7,6 @@ import com.ddenfi.expertcapstone.core.data.source.local.entity.RemoteKeys
 import com.ddenfi.expertcapstone.core.data.source.local.room.GameDao
 import com.ddenfi.expertcapstone.core.data.source.local.room.GameDetailDao
 import com.ddenfi.expertcapstone.core.data.source.local.room.RemoteKeysDao
-import com.ddenfi.expertcapstone.core.domain.model.GameDetail
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -22,11 +21,6 @@ class LocalDataSource @Inject constructor(
     //game
     fun getAllGames(): PagingSource<Int, GameEntity> = gameDao.getAllGames()
 
-    fun getGameById(gameId: Int): Flow<GameEntity> = gameDao.getGame(gameId)
-
-    fun getFavoriteGames(): Flow<List<GameEntity>> = gameDao.getFavoriteGames()
-
-
     suspend fun insertGame(game: List<GameEntity>) = gameDao.insertGame(game)
 
     suspend fun deleteAllGame() = gameDao.deleteAllGame()
@@ -38,8 +32,10 @@ class LocalDataSource @Inject constructor(
     suspend fun insertGameDetail(gameDetailEntity: GameDetailEntity) = gameDetailDao.insertDetailGame(gameDetailEntity)
 
     suspend fun setFavoriteGame(gameId: Int, isFavorite: Boolean) {
-        gameDao.updateFavouriteGame(gameId, isFavorite)
+        gameDetailDao.updateFavouriteGame(gameId, isFavorite)
     }
+
+    fun getFavoriteGames(): Flow<List<GameDetailEntity>> = gameDetailDao.getAllFavoriteGame()
 
     // remote key
 

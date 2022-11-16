@@ -45,7 +45,7 @@
                     android:id="@+id/tv_detail_game_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Grand Theft Auto V"
+                    tools:text= "Game Name"
                     android:textColor="@color/base_white"
                     android:textSize="22sp"
                     android:textStyle="bold" />
@@ -54,7 +54,7 @@
                     android:id="@+id/tv_detail_game_ersb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="esrb rating"
+                    tools:text="esrb rating"
                     android:textColor="@color/accent_white" />
 
                 <TextView
@@ -99,7 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Hours"
+                    tools:text="Hours"
                     android:layout_marginStart="4dp"
                     android:textColor="@color/base_white"
                     android:textSize="30sp"

@@ -1,5 +1,6 @@
 package com.ddenfi.expertcapstone.core.data.source.remote.network
 
+import com.ddenfi.expertcapstone.core.data.source.remote.response.GameDetailResponse
 import com.ddenfi.expertcapstone.core.data.source.remote.response.GamesResponse
 import retrofit2.http.GET
 import retrofit2.http.Path

@@ -10,5 +10,5 @@ interface GameUseCase {
     fun getAllGame(): Flow<PagingData<Game>>
     fun getDetailGame(gameId: Int): Flow<Resource<GameDetail>>
     fun setFavoriteGame(gameId: Int, isFavorite: Boolean)
-    fun getAllFavoriteGame(): Flow<Resource<List<Game>>>
+    fun getAllFavoriteGame(): Flow<Resource<List<GameDetail>>>
 }

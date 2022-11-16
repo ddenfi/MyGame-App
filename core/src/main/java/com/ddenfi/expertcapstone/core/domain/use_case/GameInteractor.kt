@@ -18,6 +18,6 @@ class GameInteractor @Inject constructor(private val gameRepository: IGameReposi
     override fun setFavoriteGame(gameId: Int, isFavorite: Boolean) =
         gameRepository.setFavoriteGame(gameId, isFavorite)
 
-    override fun getAllFavoriteGame(): Flow<Resource<List<Game>>> =
+    override fun getAllFavoriteGame(): Flow<Resource<List<GameDetail>>> =
         gameRepository.getAllFavoriteGame()
 }

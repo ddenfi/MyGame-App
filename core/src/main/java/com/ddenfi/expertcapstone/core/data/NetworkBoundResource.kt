@@ -2,6 +2,7 @@ package com.ddenfi.expertcapstone.core.data
 
 import com.ddenfi.expertcapstone.core.data.source.remote.network.ApiResponse
 import com.ddenfi.expertcapstone.core.utils.Resource
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 
 abstract class NetworkBoundResource<ResultType, RequestType> {
@@ -20,17 +21,17 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
                 }
                 is ApiResponse.Error -> {
                     onFetchFailed()
-                    emit(Resource.Error<ResultType>(apiResponse.error.toString()))
+                    emit(Resource.Error(apiResponse.error.toString()))
                 }
             }
         } else {
             emitAll(loadFromDB().map { Resource.Success(it) })
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
     protected open fun onFetchFailed() {}
 
-    protected abstract fun loadFromDB(): Flow<ResultType>
+    protected abstract fun loadFromDB(): Flow<ResultType?>
 
     protected abstract fun shouldFetch(data: ResultType?): Boolean
 

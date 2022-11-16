@@ -7,14 +7,13 @@ import androidx.room.PrimaryKey
 data class GameDetailEntity(
     @PrimaryKey
     val id: Int,
-    val name: String?= "",
-    val esrbRating:String?= "",
-    val playTime:Int?= 0,
-    val backgroundImage:String?= "",
-    val description:String?= ""  ,
-    val playtime:Int?= 0,
-    val rating:String?= "" ,
-    val parentPlatforms:List<Int>? = listOf(),
-    val released:String?="",
+    val name: String?,
+    val esrbRating:String?,
+    val playTime:Int?,
+    val backgroundImage:String?,
+    val description:String? ,
+    val rating:String? ,
+    val parentPlatforms:List<Int>?,
+    val released:String?,
     val isFavorite:Boolean = false
 )

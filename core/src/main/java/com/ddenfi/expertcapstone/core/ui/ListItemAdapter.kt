@@ -1,7 +1,5 @@
 package com.ddenfi.expertcapstone.core.ui
 
-import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,7 +37,6 @@ class ListItemAdapter :
                     7 -> binding.ivGameNintendo.visibility = View.VISIBLE
                     else -> binding.ivGameDefault.visibility = View.VISIBLE
                 }
-                Log.d("Item Platfrom", item.parentPlatforms[i].toString())
             }
 
             itemView.setOnClickListener {
