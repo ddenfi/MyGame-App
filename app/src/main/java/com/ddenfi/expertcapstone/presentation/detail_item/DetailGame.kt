@@ -38,6 +38,8 @@ class DetailGame : AppCompatActivity() {
                     }
                     is Resource.Success -> {
                         binding.pbDetailGame.visibility = View.GONE
+                        binding.ivGameImage.visibility = View.VISIBLE
+                        binding.scrollView2.visibility = View.VISIBLE
                         gameDetail.data?.let { setView(it) }
                     }
                     is Resource.Error -> {
@@ -75,7 +77,7 @@ class DetailGame : AppCompatActivity() {
             tvDetailGameName.text = gameDetail.name ?: ""
             tvDetailGameDesc.text = Html.fromHtml(gameDetail.description ?: "")
             tvDetailGameErsb.text = gameDetail.esrbRating ?: ""
-            tvDetailGamePlay.text = gameDetail.playTime.toString()
+            tvDetailGamePlay.text = StringBuilder(gameDetail.playTime.toString() + " Hour")
             Glide.with(this@DetailGame)
                 .load(gameDetail.backgroundImage)
                 .into(ivGameImage)

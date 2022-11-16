@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ddenfi.expertcapstone.R
 import com.ddenfi.expertcapstone.core.domain.model.Game
 import com.ddenfi.expertcapstone.core.ui.ListItemAdapter
+import com.ddenfi.expertcapstone.core.ui.LoadingStateAdapter
 import com.ddenfi.expertcapstone.core.utils.GAME_ID
 import com.ddenfi.expertcapstone.core.utils.IS_FAV
 import com.ddenfi.expertcapstone.databinding.ActivityListItemBinding
@@ -59,7 +60,9 @@ class ListItem : AppCompatActivity() {
         binding.rvGame.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@ListItem)
-            adapter = rvAdapter
+            adapter = rvAdapter.withLoadStateFooter(footer = LoadingStateAdapter{
+                rvAdapter.retry()
+            })
             lifecycleScope.launch {
                 viewModel.allGame.collectLatest { pagingData: PagingData<Game> ->
                     rvAdapter.submitData(pagingData)

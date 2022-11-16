@@ -5,4 +5,5 @@
     <string name="total_play_time">Total Play \nTime</string>
     <string name="fab_favorite">Fab Favorite</string>
     <string name="game_image">Game Image</string>
+    <string name="retry">Retry</string>
 </resources>

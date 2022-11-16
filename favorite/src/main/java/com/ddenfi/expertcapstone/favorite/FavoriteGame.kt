@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ddenfi.expertcapstone.core.domain.model.GameDetail
 import com.ddenfi.expertcapstone.core.utils.GAME_ID
@@ -53,6 +54,7 @@ class FavoriteGame : AppCompatActivity() {
             when (it) {
                 is Resource.Loading -> binding.pgGameFav.visibility = View.VISIBLE
                 is Resource.Success -> it.data?.let { gameDetail ->
+                    binding.animEmptyBox.isVisible = gameDetail.isEmpty()
                     rvAdapter.setData(gameDetail)
                     binding.pgGameFav.visibility = View.GONE
                 }

@@ -14,5 +14,5 @@
     <color name="blue_primary">#1991eb</color>
     <color name="base_white">#E1E1E1</color>
     <color name="accent_white">#959595</color>
-
+    <color name="front_placeholder">#4F5B70</color>
 </resources>

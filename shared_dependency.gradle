@@ -27,4 +27,10 @@ dependencies {
     //paging
     implementation "androidx.paging:paging-runtime-ktx:3.1.1"
     implementation 'androidx.paging:paging-compose:1.0.0-alpha17'
+
+    //shimmer
+    implementation "com.facebook.shimmer:shimmer:$shimmer_version"
+
+    //lottie
+    implementation "com.airbnb.android:lottie:$lottie_version"
 }
