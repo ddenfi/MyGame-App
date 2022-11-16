@@ -22,7 +22,7 @@ jobs:
           command: ./gradlew androidDependencies
       - run:
           name: Run Favorite Module
-          command: .gradlew :favorite:testDebugUnitTest
+          command: ./gradlew :favorite:testDebugUnitTest
       - save_cache:
           key: 'android-orb-v1-{{ epoch }}'
           paths:
