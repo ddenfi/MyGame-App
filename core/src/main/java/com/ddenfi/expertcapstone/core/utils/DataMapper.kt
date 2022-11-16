@@ -59,17 +59,4 @@ object DataMapper {
             isFavorite = false
         )
 
-    fun mapGameDetailToGame(input:List<GameDetail>):List<Game>{
-        val output = input.map { data ->
-            Game(
-                id = data.id,
-                name = data.name ?: "",
-                released = data.released ?: "",
-                rating = data.rating ?: "",
-                parentPlatforms = data.parentPlatforms ?: listOf(),
-                isFavorite = data.isFavorite
-            )
-        }
-        return output
-    }
 }

@@ -38,11 +38,6 @@ android {
         viewBinding = true
     }
 
-    lintOptions {
-        abortOnError false
-        baseline file("lint-baseline.xml")
-    }
-
     dynamicFeatures = [':favorite']
     namespace 'com.ddenfi.expertcapstone'
 }

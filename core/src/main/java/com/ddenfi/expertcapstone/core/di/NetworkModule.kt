@@ -16,8 +16,8 @@ import java.util.concurrent.TimeUnit
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
-    val hostNameApi = "rawg.io"
-    val certificatePinner = CertificatePinner.Builder()
+    private val hostNameApi = "rawg.io"
+    private val certificatePinner = CertificatePinner.Builder()
         .add(hostNameApi,"sha256/6i+nf58l8neEnNarZOvxiYfVbt2S2xurswGQQBBMa0U=")
         .add(hostNameApi,"sha256/FEzVOUp4dF3gI0ZVPRJhFbSJVXR+uQmMH65xhs1glH4=")
         .add(hostNameApi,"sha256/Y9mvm0exBk1JoQ57f9Vm28jKo5lFm/woKcVxrYxu80o=")

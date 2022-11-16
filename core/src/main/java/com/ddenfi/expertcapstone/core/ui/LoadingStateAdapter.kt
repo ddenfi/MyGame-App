@@ -3,12 +3,10 @@ package com.ddenfi.expertcapstone.core.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ddenfi.expertcapstone.core.databinding.ItemGameLoadingBinding
-import com.ddenfi.expertcapstone.core.databinding.ItemGamePlaceholderBinding
 
 class LoadingStateAdapter(private val retry: () -> Unit) :
     LoadStateAdapter<LoadingStateAdapter.LoadingStateViewHolder>() {
