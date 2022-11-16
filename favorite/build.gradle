@@ -8,7 +8,7 @@ plugins {
 apply from: '../shared_dependency.gradle'
 
 android {
-    compileSdk 33
+    compileSdk 31
 
     defaultConfig {
         minSdk 21
