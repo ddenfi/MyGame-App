@@ -5,7 +5,8 @@ Show a your game! . A project from dicoding expert final capstone
 
 [![ddenfi](https://circleci.com/gh/ddenfi/MyGame-App.svg?style=svg)](https://circleci.com/gh/ddenfi/MyGame-App)
 
-<img src="https://user-images.githubusercontent.com/99384080/226186819-dddcbdac-b569-472c-b57d-d2f0bd46ae55.gif" width="200">
+<img src="ttps://user-images.githubusercontent.com/99384080/226186819-dddcbdac-b569-472c-b57d-d2f0bd46ae55.gif" width="200">
+
 [Screenshot App]
 
 Project **MyGame-App** yang saya kerjakan ini merupakan salah satu submission platform pembelajaran dicoding dalam kelas android expert. Dalam project ini saya belajar mengenai banyak hal terutama dalam *best-practice* membangun sebuah android development. antara lain seperti:
