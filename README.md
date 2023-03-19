@@ -6,7 +6,7 @@ Show a your game! . A project from dicoding expert final capstone
 
 [![ddenfi](https://circleci.com/gh/ddenfi/MyGame-App.svg?style=svg)](https://circleci.com/gh/ddenfi/MyGame-App)
 
-<img src="[MyGame-App](https://media.giphy.com/media/VEpTTXz1cBRqAnQugR/giphy.gif)" width="200">
+<img src="https://media.giphy.com/media/VEpTTXz1cBRqAnQugR/giphy.gif" width="200">
 
 [Screenshot App]
 
