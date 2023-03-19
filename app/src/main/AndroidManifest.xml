@@ -18,7 +18,8 @@
         <activity
             android:name=".presentation.list_item.ListItem"
             android:exported="true"
-            tools:node="replace">
+            tools:node="replace"
+            android:theme="@style/Theme.ExpertCapstone.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
